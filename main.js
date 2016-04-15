@@ -25,7 +25,8 @@ var USAGE = "Error missing args. \n" +
     "--useTunnel : (optional) use tunneling instead of local address. default is false\n" +
     "--config : (optional) read configuration from paramedic configuration file\n" +
     "--reportSavePath: (optional) path to save Junit results file\n" +
-    "--cleanUpAfterRun: (optional) cleans up the application after the run.";
+    "--cleanUpAfterRun: (optional) cleans up the application after the run.\n" +
+    "--shouldUseSauce: (optional) sauce it up!";
 
 var argv = parseArgs(process.argv.slice(2));
 var pathToParamedicConfig = argv.config && path.resolve(argv.config);
@@ -39,7 +40,7 @@ if (pathToParamedicConfig || // --config
 
     paramedic.run(paramedicConfig)
     .catch(function (error) {
-        console.error(error.message);
+        console.error(error.stack);
         process.exit(1);
     })
     .done(function(isTestPassed) {
